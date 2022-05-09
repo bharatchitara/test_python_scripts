@@ -1,0 +1,170 @@
+<html>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<form id = "form1" method= "post" action= "">
+    {% csrf_token %}  
+
+<label>Select Model:</label>
+
+
+<select name = "dropdown_model" id = "select1" style = "margin-left: 20px">
+    {% for i in arr_name %} 
+    <option value= "{{ i }}"  >  {{ i }}  </option>
+    {% endfor %}
+  </select>
+
+
+<input type= "button" class =  "select" id = "select" value = "Select" onclick = "getid()"/>
+
+<p></p>
+<label>Upload your image:</label>
+<input type="file" id="myFile" name="filename">
+
+<input type= "button" class =  "select2" id = "select2" value = "Show Result" onclick = ""/>
+
+
+</form>
+
+
+
+<script>
+
+function getid(){
+    const flag_select = document.getElementsByClassName("select");
+    const get_file_name = document.getElementsByClassName("dropdown_model");
+    //const get_item = document.getElementsByName("items_text");
+    
+
+   // console.log(get_item)
+
+    selectElement = document.querySelector('#select1');
+  //  console.log(selectElement)
+    output = selectElement.value;
+  //   document.querySelector('.output').textContent = output;
+    console.log(output)
+
+    
+    $.ajax({
+        type: "GET",
+        url: 'test_user2/',
+        data: {
+            "filename": output,
+           // "items": get_item,
+
+            
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data['flag_data' == 1 ]){
+             
+            alert("selected")
+            }
+        },
+        failure: function () {
+            alert("failure");
+        }
+    });
+
+
+
+
+}
+
+    </script>
+
+
+
+
+
+<!--
+<script>
+
+    const flag_select = document.getElementsByClassName("select");
+    const get_file_name = document.getElementsByClassName("dropdown_model");
+
+    console.log(flag_select)
+    
+
+    var filename = ''
+    var flag_counter = ''
+
+
+    flag_select.addEventListener("click", ()=>{
+    if(flag_select.value == "Select"){
+        console.log("da")
+        var selected_value = get_file_name.options[get_file_name.selectedIndex].value;
+        console.log(selected_value);
+
+        $.ajax({
+            type: "GET",
+            url: 'test_user2/',
+            data: {
+                "filename": get_file_name.value,
+                "flag_counter": i,
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data['flag_data' == 1 ]){
+                 
+                alert("selected")
+                }
+            },
+            failure: function () {
+                alert("failure");
+            }
+        });
+
+    }});
+
+
+    for(let i = 0; i<flag_select.length; i++){
+        flag_select[i].addEventListener("click", ()=>{
+  
+           if(flag_select[i].value == "Select"){
+               console.log(get_file_name.value);
+               
+               
+  
+               $.ajax({
+                   type: "GET",
+                   url: 'test_user2/',
+                   data: {
+                       "filename": get_file_name[i].value,
+                       "flag_counter": i,
+                       
+                   },
+                   dataType: "json",
+                   success: function (data) {
+                       if (data['flag_data' == 1 ]){
+                        
+                       alert("selected")
+                       }
+                   },
+                   failure: function () {
+                       alert("failure");
+                   }
+               });
+  
+  
+            document.getElementsByClassName("select").disabled = true
+            //console.log('var45')
+  
+               }
+           
+   });
+  
+       } 
+
+
+
+</script>
+-->
+</html>
+
+
+
+
+
+
